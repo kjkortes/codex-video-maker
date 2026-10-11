@@ -1,26 +1,64 @@
 # Codex Video Maker
 
-A reusable Codex workspace for creating professional faceless walkthrough videos of GitHub repositories and websites.
+A reusable Codex workspace for creating professional faceless walkthrough videos of GitHub repositories, developer tools, software products, and websites.
 
-The workflow separates **content preparation** from **video production**:
+This project separates the workflow into three stages:
 
-1. Research and script are prepared in ChatGPT Web.
-2. Voiceover audio and timestamps are prepared outside Codex.
-3. Codex acts as the visual director, browser operator, editor, and renderer.
-4. HyperFrames is the required video composition and rendering engine.
-5. Installed motion-design skills guide composition, pacing, animation, and visual polish.
+1. **ChatGPT Web Project** — research, story angle, script, and source configuration
+2. **TTS App** — narration audio and timestamped transcript
+3. **Codex Video Maker** — visual planning, browser capture, motion design, HyperFrames composition, QA, and final rendering
+
+The goal is to keep Codex focused on video production instead of spending credits on research, script writing, and TTS.
 
 ---
 
-## Project Structure
+# End-to-End Workflow
+
+```text
+Target URL
+   │
+   ▼
+ChatGPT Web Project
+"Tech Video Research & Script"
+   │
+   ├── research.md
+   ├── script.txt
+   └── source.json
+   │
+   ▼
+TTS App
+   │
+   ├── vo.mp3
+   └── transcript.json
+   │
+   ▼
+Codex Video Maker
+   │
+   ├── visual planning
+   ├── browser navigation
+   ├── screenshots / short recordings
+   ├── motion design
+   ├── HyperFrames composition
+   ├── QA
+   └── rendering
+   │
+   ▼
+final.mp4
+```
+
+---
+
+# Project Structure
 
 ```text
 codex-video-maker/
 ├── .agents/
 │   └── skills/                 # Installed Codex-compatible video skills
+│
 ├── assets/                     # Shared branding, music, SFX, etc.
-├── docs/                       # Shared video style and production docs
+├── docs/                       # Shared production references
 ├── templates/                  # Reusable supporting templates
+│
 ├── jobs/
 │   ├── _template/              # Copy this for every new video
 │   │   ├── captures/
@@ -29,6 +67,7 @@ codex-video-maker/
 │   │   ├── script.txt
 │   │   ├── source.json
 │   │   └── transcript.json
+│   │
 │   └── <video-name>/
 │       ├── captures/
 │       ├── composition/        # HyperFrames project
@@ -38,28 +77,276 @@ codex-video-maker/
 │       ├── transcript.json
 │       ├── vo.mp3
 │       └── final.mp4
+│
 ├── AGENTS.md                   # Permanent production rules for Codex
 ├── skills-lock.json
 └── README.md
 ```
 
+---
+
+# One-Time Setup
+
+## 1. Requirements
+
+Required:
+
+- Node.js 22+
+- FFmpeg
+- Chrome/Chromium supported by HyperFrames
+- VS Code
+- Codex VS Code extension
+
+Check Node:
+
+```bash
+node -v
+```
+
+Check FFmpeg:
+
+```bash
+ffmpeg -version
+```
+
+HyperFrames can run through `npx`, so a global installation is not required.
+
+---
+
+## 2. Install Motion Skills
+
+From the project root:
+
+```bash
+npx skills add iart-ai/motion-design-skills
+npx skills add iart-ai/explainer-video-skills
+```
+
+The most useful skills for this project are:
+
+- `motion-art-direction`
+- `shot-composition`
+- `animation-principles`
+- `color-motion`
+- `beat-sync-editing`
+- `explainer-video`
+
+Specialized skills such as diagram, isometric, or whiteboard animation should only be used when they clearly improve the explanation.
+
+HyperFrames is the required renderer.
+
+Do not use Remotion unless explicitly requested.
+
+---
+
+## 3. Verify HyperFrames
+
+Run:
+
+```bash
+npx hyperframes doctor
+```
+
+Important checks:
+
+- Node.js
+- FFmpeg
+- FFprobe
+- Chrome
+- disk space
+
+TTS and MusicGen are optional because narration audio is supplied as an input.
+
+Docker is also optional.
+
+### Memory note
+
+Use one render worker by default:
+
+```text
+--workers 1
+```
+
+Close unnecessary browser tabs and memory-heavy applications before final renders.
+
+---
+
+## 4. Optional Smoke Test
+
+Create a temporary test project:
+
+```bash
+npx hyperframes init jobs/_smoke-test --non-interactive
+cd jobs/_smoke-test
+npx hyperframes lint
+npx hyperframes inspect
+npx hyperframes render --quality draft --workers 1 --output smoke-test.mp4
+```
+
+If the MP4 renders successfully, the environment is ready.
+
+You can then delete:
+
+```text
+jobs/_smoke-test/
+```
+
+---
+
+# ChatGPT Web Project
+
+Use one reusable ChatGPT Project for all video research and scripting.
+
+Project name:
+
+```text
+Codex Video Maker
+```
+
+Create a **new chat inside the same project for each new video**.
+
+Do not create a separate ChatGPT Project for every repo or website.
+
+The ChatGPT Project is responsible for:
+
+- researching the target
+- identifying the strongest story angle
+- proposing the hook
+- writing the voiceover
+- revising the voiceover with you
+- producing the approved production package
+
+It should not normally create:
+
+- TTS audio
+- final timestamps
+- storyboards
+- shot lists
+- browser automation
+- HyperFrames code
+- video edits
+
+Those belong to later stages.
+
+---
+
+# How to Use the ChatGPT Web Project
+
+## Step 1 — Start a New Chat
+
+Inside the `Codex Video Maker` project, start a new conversation.
+
+Give it the target URL.
+
+Example:
+
+```text
+Research and prepare a video about:
+
+https://github.com/storytold/photocraft
+```
+
+For a website:
+
+```text
+Research and prepare a video about:
+
+https://example.com
+```
+
+---
+
+## Step 2 — Review the Story Angle
+
+The ChatGPT Project should research the target and propose the strongest angle before producing final files.
+
+Review:
+
+- the central idea
+- the hook
+- which features are worth mentioning
+- important limitations
+- whether the angle is interesting enough for a short video
+
+You can refine it conversationally.
+
+Examples:
+
+```text
+Give me 5 stronger hooks.
+```
+
+```text
+Make the angle more developer-focused.
+```
+
+```text
+Focus less on the feature list and more on what makes this project unusual.
+```
+
+```text
+Keep it under 50 seconds.
+```
+
+```text
+Make the narration more engaging but keep every claim factual.
+```
+
+---
+
+## Step 3 — Approve the Voiceover
+
+Do not generate the production package until the script is ready.
+
+Keep revising until the narration is approved.
+
+When satisfied, say:
+
+```text
+Approved. Generate the production package.
+```
+
+The ChatGPT Project should then produce:
+
+```text
+research.md
+script.txt
+source.json
+```
+
+These are the only files needed from ChatGPT Web.
+
+---
 
 # Input File Formats
 
-Every video job must follow the same input contract.
+Every video job uses the same input contract.
 
-Required input files:
+The full job inputs are:
 
 ```text
 jobs/<video-name>/
 ├── research.md
 ├── script.txt
-├── transcript.json
 ├── source.json
-└── vo.mp3
+├── vo.mp3
+└── transcript.json
 ```
 
-Do not rename these files unless the project rules are updated.
+ChatGPT Web creates:
+
+```text
+research.md
+script.txt
+source.json
+```
+
+Your TTS app creates:
+
+```text
+vo.mp3
+transcript.json
+```
 
 ---
 
@@ -69,7 +356,7 @@ Purpose:
 
 Provide factual context and visual guidance for Codex.
 
-This file is **not** the narration. It helps Codex understand what the video is about and what visuals are worth showing.
+This is not the narration.
 
 Recommended format:
 
@@ -83,55 +370,51 @@ PhotoCraft
 https://github.com/storytold/photocraft
 
 ## Summary
-PhotoCraft is an open-source image editor written in Rust. It is designed as a clean-room Photoshop-style editor with non-destructive editing features and automation support.
+PhotoCraft is an open-source image editor written in Rust.
 
 ## Key Facts
-- Written in Rust.
 - Open source.
-- Supports non-destructive adjustment layers.
+- Written in Rust.
+- Supports non-destructive editing.
 - Includes local smart-selection features.
-- Supports scripting and AI-agent automation.
-- Still in early alpha.
+- Supports scripting and automation.
 
 ## Important Features
+
 ### Adjustment Layers
-Adjustment layers can be reordered, disabled, and masked without permanently changing the original image.
+Adjustment layers can be reordered, disabled, and masked without permanently changing the source image.
 
 ### Smart Selection
 Object and subject selection can run locally.
 
 ### Automation
-Scripts and AI agents can perform editing actions available through the interface.
+Scripts and AI agents can perform editing actions through the application.
 
 ## Visual Opportunities
 - GitHub repository title and description.
 - README hero screenshot.
 - Main editor interface.
 - Layers panel.
-- Adjustment layers.
-- Smart-selection tools.
+- Adjustment layer controls.
+- Smart-selection section.
 - Automation or scripting section.
-- Relevant code or architecture view if useful.
 
 ## Limitations / Accuracy Notes
-- Do not present PhotoCraft as a full Photoshop replacement.
-- It is still early alpha.
+- Early alpha.
+- Do not present it as a full Photoshop replacement.
 
 ## Useful Links
 - Repository: https://github.com/storytold/photocraft
-- Demo: <optional>
-- Documentation: <optional>
 ```
 
-### Rules
+Rules:
 
-- Use headings.
-- Keep facts concise.
-- Include visual opportunities.
-- Include limitations or claims that must not be overstated.
-- Add useful URLs when relevant.
-- Do not put production instructions here.
-- Do not duplicate the full narration.
+- keep facts concise
+- include visual opportunities
+- include limitations
+- use useful primary links
+- do not add production instructions
+- do not duplicate the full narration
 
 ---
 
@@ -139,11 +422,11 @@ Scripts and AI agents can perform editing actions available through the interfac
 
 Purpose:
 
-Store the **final approved voiceover script**.
+Store the final approved narration.
 
 Format:
 
-Plain UTF-8 text only.
+Plain UTF-8 text.
 
 Example:
 
@@ -159,25 +442,96 @@ But the most interesting part is that scripts and AI agents can perform many of 
 It's still early alpha, so it isn't a Photoshop replacement yet. But it's an interesting look at what a modern programmable image editor could become.
 ```
 
-### Rules
+Rules:
 
-- This is the narration source of truth.
-- Do not include timestamps.
-- Do not include scene directions.
-- Do not include Markdown headings.
-- Do not include notes to Codex.
-- Do not include alternate versions.
-- The text should match the generated voiceover.
+- narration only
+- no timestamps
+- no headings
+- no citations
+- no notes
+- no visual instructions
+- no alternate versions
+
+This file should be ready to paste directly into the TTS app.
+
+---
+
+## `source.json`
+
+Purpose:
+
+Define the source and output configuration.
+
+Default landscape format:
+
+```json
+{
+  "url": "https://github.com/storytold/photocraft",
+  "title": "PhotoCraft",
+  "format": "16:9",
+  "width": 1920,
+  "height": 1080,
+  "fps": 30,
+  "target_duration_seconds": 60,
+  "platforms": ["youtube", "facebook"]
+}
+```
+
+Optional fields:
+
+```json
+{
+  "demo_url": "https://example.com/demo",
+  "repository_url": "https://github.com/example/project",
+  "documentation_url": "https://example.com/docs",
+  "preferred_theme": "dark",
+  "notes": "Focus on the live demo more than the README."
+}
+```
+
+Recommended vertical format:
+
+```json
+{
+  "url": "https://example.com",
+  "title": "Example",
+  "format": "9:16",
+  "width": 1080,
+  "height": 1920,
+  "fps": 30,
+  "target_duration_seconds": 60,
+  "platforms": ["youtube-shorts", "facebook-reels", "tiktok"]
+}
+```
+
+---
+
+## `vo.mp3`
+
+Generated by the TTS app.
+
+Requirements:
+
+```text
+Filename: vo.mp3
+Format: MP3
+Recommended sample rate: 44.1 kHz or 48 kHz
+```
+
+Rules:
+
+- this is the final approved narration audio
+- do not regenerate it inside Codex
+- do not change playback speed unless explicitly requested
+- audio duration is the real video duration
 
 ---
 
 ## `transcript.json`
 
-Purpose:
+Generated by the TTS app from the final script and audio.
 
-Provide timestamped narration segments so Codex can synchronize visuals to the voiceover.
-
-Required format:
+Example:
 
 ```json
 [
@@ -194,143 +548,27 @@ Required format:
 ]
 ```
 
-Each item must contain:
+Each item contains:
 
 | Field | Type | Description |
 |---|---|---|
-| `start` | number | Segment start time in seconds |
-| `end` | number | Segment end time in seconds |
-| `text` | string | Exact spoken text for the segment |
+| `start` | number | Segment start in seconds |
+| `end` | number | Segment end in seconds |
+| `text` | string | Spoken text |
 
-### Rules
+Rules:
 
-- Times are in seconds.
-- Use decimal values when needed.
-- `start` must be lower than `end`.
-- Segments must be in chronological order.
-- Segments should not overlap.
-- `text` should match the actual spoken audio.
-- Prefer sentence or phrase-level segments.
-- Do not create one entry per word unless explicitly needed.
-- The final `end` time should approximately match the voiceover duration.
-
-Recommended segment size:
-
-```text
-2–6 seconds per segment
-```
-
-This gives Codex enough timing precision without creating excessive scene fragmentation.
+- chronological order
+- no overlapping segments
+- timestamps match the actual audio
+- phrase or sentence-level segments are preferred
+- final `end` should approximately match the audio duration
 
 ---
 
-## `source.json`
+# Input Priority
 
-Purpose:
-
-Define the target source and video configuration.
-
-Required format:
-
-```json
-{
-  "url": "https://github.com/storytold/photocraft",
-  "title": "PhotoCraft",
-  "format": "16:9",
-  "width": 1920,
-  "height": 1080,
-  "fps": 30,
-  "target_duration_seconds": 60,
-  "platforms": ["youtube", "facebook"]
-}
-```
-
-Fields:
-
-| Field | Type | Required | Description |
-|---|---|---:|---|
-| `url` | string | yes | Primary GitHub repo or website URL |
-| `title` | string | yes | Human-readable project/video title |
-| `format` | string | yes | Aspect ratio such as `16:9` or `9:16` |
-| `width` | number | yes | Output width in pixels |
-| `height` | number | yes | Output height in pixels |
-| `fps` | number | yes | Output frame rate |
-| `target_duration_seconds` | number | yes | Intended maximum or approximate duration |
-| `platforms` | string[] | yes | Target publishing platforms |
-
-Recommended defaults for landscape walkthroughs:
-
-```json
-{
-  "format": "16:9",
-  "width": 1920,
-  "height": 1080,
-  "fps": 30,
-  "target_duration_seconds": 60,
-  "platforms": ["youtube", "facebook"]
-}
-```
-
-Recommended defaults for vertical short-form:
-
-```json
-{
-  "format": "9:16",
-  "width": 1080,
-  "height": 1920,
-  "fps": 30,
-  "target_duration_seconds": 60,
-  "platforms": ["youtube-shorts", "facebook-reels", "tiktok"]
-}
-```
-
-### Optional fields
-
-You may add these when useful:
-
-```json
-{
-  "demo_url": "https://example.com/demo",
-  "repository_url": "https://github.com/example/project",
-  "preferred_theme": "dark",
-  "notes": "Focus on the live demo more than the README."
-}
-```
-
-Codex must not assume optional fields exist.
-
----
-
-## `vo.mp3`
-
-Purpose:
-
-Provide the final approved narration audio.
-
-Requirements:
-
-```text
-Filename: vo.mp3
-Format: MP3
-Recommended sample rate: 44.1 kHz or 48 kHz
-Recommended channels: mono or stereo
-```
-
-### Rules
-
-- This file controls the real video duration.
-- Do not regenerate it inside Codex.
-- Do not change playback speed unless explicitly requested.
-- The spoken words must match `script.txt`.
-- `transcript.json` timing must correspond to this exact file.
-
-If the duration of `vo.mp3` differs from `target_duration_seconds`, the voiceover duration takes priority.
-
----
-
-## Input Priority
-
-When files disagree, use this order:
+If files disagree, use this order:
 
 ```text
 1. vo.mp3
@@ -342,19 +580,65 @@ When files disagree, use this order:
 
 Meaning:
 
-- `vo.mp3` controls actual timing.
-- `transcript.json` controls narration segment timing.
-- `script.txt` controls approved wording.
-- `research.md` provides factual and visual context.
-- `source.json` provides source and output configuration.
+- `vo.mp3` controls actual timing
+- `transcript.json` controls narration timing
+- `script.txt` controls approved wording
+- `research.md` provides factual and visual context
+- `source.json` provides source and output configuration
 
-If there is a meaningful conflict between the files, Codex should stop and report it instead of silently changing the narration or facts.
+If a meaningful conflict exists, Codex should report it instead of silently changing the narration or facts.
 
 ---
 
-## Minimal Valid Job
+# Create the TTS Files
 
-A ready-to-produce job should look like this:
+Take `script.txt` from the ChatGPT Web Project and load it into your TTS application.
+
+The TTS application should generate:
+
+```text
+vo.mp3
+transcript.json
+```
+
+Use the final approved script only.
+
+Do not edit the script after generating the TTS files unless you regenerate both the audio and transcript.
+
+---
+
+# Create a New Video Job
+
+From the root of `codex-video-maker`:
+
+```bash
+cp -r jobs/_template jobs/photocraft
+```
+
+Replace `photocraft` with a short slug.
+
+Example:
+
+```text
+jobs/photocraft/
+```
+
+Copy the ChatGPT Web outputs into the job:
+
+```text
+research.md
+script.txt
+source.json
+```
+
+Then add the TTS outputs:
+
+```text
+vo.mp3
+transcript.json
+```
+
+The job should now look like:
 
 ```text
 jobs/photocraft/
@@ -362,207 +646,16 @@ jobs/photocraft/
 ├── composition/
 ├── research.md
 ├── script.txt
-├── transcript.json
 ├── source.json
+├── transcript.json
 └── vo.mp3
 ```
 
-Once these inputs are complete, the job is ready for Codex video production.
+---
 
+# Initialize HyperFrames for the Job
 
-# One-Time Setup
-
-## 1. Requirements
-
-Required:
-
-- Node.js 22+
-- FFmpeg
-- Chrome/Chromium supported by HyperFrames
-- VS Code with the Codex extension
-
-Check Node:
-
-```bash
-node -v
-```
-
-Check FFmpeg:
-
-```bash
-ffmpeg -version
-```
-
-HyperFrames can be run through `npx`, so a global installation is not required.
-
-## 2. Install the Motion Skills
-
-From the project root:
-
-```bash
-npx skills add iart-ai/motion-design-skills
-npx skills add iart-ai/explainer-video-skills
-```
-
-The most important skills for this project are:
-
-- `motion-art-direction`
-- `shot-composition`
-- `animation-principles`
-- `color-motion`
-- `beat-sync-editing`
-- `explainer-video`
-
-Specialized skills such as diagram, isometric, or whiteboard animation should only be used when they clearly improve the explanation.
-
-Do not use Remotion unless explicitly requested. HyperFrames is the required renderer.
-
-## 3. Verify HyperFrames
-
-Run:
-
-```bash
-npx hyperframes doctor
-```
-
-The important checks are:
-
-- Node.js
-- FFmpeg
-- FFprobe
-- Chrome
-- available disk space
-
-TTS and MusicGen are optional for this project because voiceover audio is provided as an input.
-
-Docker is also optional.
-
-### Memory note
-
-Use one render worker by default:
-
-```text
---workers 1
-```
-
-Close unnecessary browser tabs and memory-heavy applications before final renders.
-
-## 4. Optional Smoke Test
-
-To verify rendering:
-
-```bash
-npx hyperframes init jobs/_smoke-test --non-interactive
-cd jobs/_smoke-test
-npx hyperframes lint
-npx hyperframes inspect
-npx hyperframes render --quality draft --workers 1 --output smoke-test.mp4
-```
-
-If the MP4 renders successfully, the environment is ready. The smoke-test directory can then be deleted.
-
-# Creating a New Video
-
-## Step 1 — Prepare the Content in ChatGPT Web
-
-Do not ask Codex to research the topic or write the narration unless explicitly needed.
-
-Prepare:
-
-```text
-research.md
-script.txt
-```
-
-The research should contain:
-
-- what the project/site is
-- important features
-- useful facts
-- limitations
-- visual opportunities
-- specific pages, sections, screenshots, or features worth showing
-
-The script should contain only the final approved narration.
-
-## Step 2 — Generate the Voiceover
-
-Generate the final narration with your preferred TTS tool.
-
-Save it as:
-
-```text
-vo.mp3
-```
-
-Do not ask Codex to regenerate or rewrite the narration.
-
-## Step 3 — Create the Timestamped Transcript
-
-Create `transcript.json`.
-
-Example:
-
-```json
-[
-  {
-    "start": 0.0,
-    "end": 3.8,
-    "text": "What if Photoshop were rebuilt from scratch in Rust?"
-  },
-  {
-    "start": 3.8,
-    "end": 7.2,
-    "text": "That's essentially what PhotoCraft is trying to do."
-  }
-]
-```
-
-The voiceover timing is the master timeline for the video.
-
-## Step 4 — Create the Video Job
-
-From the project root:
-
-```bash
-cp -r jobs/_template jobs/photocraft
-```
-
-Replace `photocraft` with a short slug for the video.
-
-Then place the prepared files inside it:
-
-```text
-jobs/photocraft/
-├── research.md
-├── script.txt
-├── transcript.json
-├── source.json
-└── vo.mp3
-```
-
-## Step 5 — Configure `source.json`
-
-Example:
-
-```json
-{
-  "url": "https://github.com/storytold/photocraft",
-  "title": "PhotoCraft",
-  "format": "16:9",
-  "width": 1920,
-  "height": 1080,
-  "fps": 30,
-  "target_duration_seconds": 60,
-  "platforms": ["youtube", "facebook"]
-}
-```
-
-The actual video duration should follow the supplied voiceover.
-
-## Step 6 — Initialize HyperFrames for the Job
-
-HyperFrames lives inside the job's `composition/` directory.
+HyperFrames belongs inside the job's `composition/` directory.
 
 Run:
 
@@ -570,7 +663,7 @@ Run:
 npx hyperframes init jobs/photocraft/composition --non-interactive
 ```
 
-The result will look similar to:
+After initialization:
 
 ```text
 jobs/photocraft/
@@ -591,11 +684,15 @@ jobs/photocraft/
 
 The root `AGENTS.md` contains the permanent production rules for all videos.
 
-# Starting Codex
+---
 
-Open the full `codex-video-maker` workspace in VS Code.
+# Start Codex
 
-Then give Codex a production request such as:
+Open the full `codex-video-maker` folder in VS Code.
+
+Use the Codex extension.
+
+Give Codex a production request such as:
 
 ```text
 Create the video for jobs/photocraft.
@@ -609,16 +706,16 @@ Follow the root AGENTS.md and the installed motion-design skills.
 Render the final video to jobs/photocraft/final.mp4.
 ```
 
-Codex should handle the visual-production phase:
+Codex should handle:
 
 ```text
 Read inputs
     ↓
-Create shot plan
+Create visual plan
     ↓
 Determine the best visual for each narration beat
     ↓
-Navigate the website/repository
+Navigate the repo/site
     ↓
 Capture screenshots and short interactions
     ↓
@@ -637,9 +734,11 @@ Fix weak scenes
 Final render
 ```
 
+---
+
 # Visual Production Rules
 
-The video should feel like a professionally edited technology explainer, not an automated screen recording.
+The video should feel like a professionally edited technology explainer, not an automated browser recording.
 
 Prefer:
 
@@ -647,7 +746,7 @@ Prefer:
 - element-level captures
 - deliberate crops
 - UI close-ups
-- slow controlled camera moves
+- slow controlled camera movement
 - static screenshots with motion
 - short browser interactions
 - purposeful cuts
@@ -663,13 +762,21 @@ Avoid:
 - excessive zooming
 - decorative motion without purpose
 - large blocks of on-screen text
-- repeating the full narration as text
+- repeating the narration as text
 
-For every narration beat, determine **what the viewer needs to see first**, then choose the best capture type.
+For each narration beat, first decide:
+
+```text
+What does the viewer need to see right now?
+```
+
+Then choose the best visual source.
+
+---
 
 # HyperFrames QA Workflow
 
-For every video, Codex must follow:
+Every video should follow:
 
 ```text
 lint
@@ -680,10 +787,15 @@ lint
 → final render
 ```
 
-Useful manual commands from the composition directory:
+From the composition directory:
 
 ```bash
 npx hyperframes lint
+```
+
+Then:
+
+```bash
 npx hyperframes inspect
 ```
 
@@ -705,44 +817,65 @@ npx hyperframes render \
   --output ../final.mp4
 ```
 
+---
+
 # Final Output
 
-The final deliverable for each video must be:
+The final deliverable must be:
 
 ```text
 jobs/<video-name>/final.mp4
 ```
 
-Do not overwrite the original research, script, transcript, voiceover, or source configuration.
+Example:
+
+```text
+jobs/photocraft/final.mp4
+```
+
+Do not overwrite:
+
+- `research.md`
+- `script.txt`
+- `source.json`
+- `transcript.json`
+- `vo.mp3`
+
+---
 
 # Starting the Next Video
 
-For every new video:
+For each new video:
+
+1. Start a new chat inside the existing ChatGPT Web Project.
+2. Give it the repo or website URL.
+3. Review and refine the story angle and script.
+4. Approve the script.
+5. Generate:
+   - `research.md`
+   - `script.txt`
+   - `source.json`
+6. Load `script.txt` into the TTS app.
+7. Generate:
+   - `vo.mp3`
+   - `transcript.json`
+8. Create a new job:
 
 ```bash
 cp -r jobs/_template jobs/<video-name>
 ```
 
-Add:
-
-```text
-research.md
-script.txt
-transcript.json
-source.json
-vo.mp3
-```
-
-Initialize HyperFrames:
+9. Copy all five inputs into the job.
+10. Initialize HyperFrames:
 
 ```bash
 npx hyperframes init jobs/<video-name>/composition --non-interactive
 ```
 
-Then ask Codex:
+11. Ask Codex:
 
 ```text
 Create the video for jobs/<video-name>.
 ```
 
-The same workspace, skills, production rules, and shared assets are reused for every video.
+The same ChatGPT Project, Codex workspace, skills, production rules, and shared assets are reused for every video.
