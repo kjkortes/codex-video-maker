@@ -1,0 +1,13 @@
+What if Photoshop were rebuilt from scratch in Rust—and every editing command could also be driven by an AI agent?
+
+That’s PhotoCraft, an open-source, clean-room image editor with a native egui interface and a GPU compositor built on wgpu.
+
+It already supports layered PSD files, adjustment layers, masks, type, brushes, smart objects, smart filters, and local subject and object selection.
+
+But the unusual part is the architecture. Every action is a command, so the same editing engine can be controlled from the desktop UI, CLI, JSON, or an MCP server.
+
+The project even tracks Photoshop’s menu tree and currently reports all 627 menu items wired to live commands.
+
+That does not mean full Photoshop parity yet. PhotoCraft still calls itself early alpha, and its roadmap says fidelity and deeper behavior remain unfinished.
+
+Still, it’s a fascinating look at what an agent-ready creative app can look like.
