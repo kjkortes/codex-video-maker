@@ -12,6 +12,14 @@ The goal is to keep Codex focused on video production instead of spending credit
 
 ---
 
+## Quick start after preparing the input files
+
+See **[`guide.md`](guide.md)** for the copy-paste-ready production workflow. After putting the five input files in `inbox/`, choose either the **Horizontal (16:9, 1920×1080)** or **Vertical (9:16, 1080×1920)** Codex prompt in that guide.
+
+The selected orientation overrides the aspect ratio and dimensions in `source.json` **without changing the original file**. Codex saves the effective settings as `render-config.json` in the new job. This lets you use the same approved script and TTS output for either format.
+
+---
+
 # End-to-End Workflow
 
 ```text
