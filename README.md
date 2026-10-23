@@ -1,6 +1,6 @@
 # Codex Video Maker
 
-A reusable Codex workspace for creating professional faceless walkthrough videos of GitHub repositories, developer tools, software products, and websites.
+A reusable Codex workspace for creating professional faceless technology explainers and walkthrough videos of GitHub repositories, developer tools, software products, and websites.
 
 This project separates the workflow into three stages:
 
@@ -17,6 +17,8 @@ The goal is to keep Codex focused on video production instead of spending credit
 See **[`guide.md`](guide.md)** for the copy-paste-ready production workflow. After putting the five input files in `inbox/`, choose either the **Horizontal (16:9, 1920×1080)** or **Vertical (9:16, 1080×1920)** Codex prompt in that guide.
 
 The selected orientation overrides the aspect ratio and dimensions in `source.json` **without changing the original file**. Codex saves the effective settings as `render-config.json` in the new job. This lets you use the same approved script and TTS output for either format.
+
+The [visual production workflow](docs/visual-production-workflow.md) adds transcript-synchronized shot planning, authentic product evidence, selective motion graphics, and a consistent typography, color, and motion system. Every shot is composed for the selected format. Codex inspects a storyboard/contact sheet before completing animation, then watches and fixes the draft before final rendering. Research, script approval, external TTS, transcript timestamps, the five-file input contract, and HyperFrames remain unchanged.
 
 ---
 
@@ -42,12 +44,13 @@ TTS App
    ▼
 Codex Video Maker
    │
-   ├── visual planning
+   ├── transcript-synchronized shot plan + visual system
    ├── browser navigation
    ├── screenshots / short recordings
+   ├── static layouts + inspected storyboard/contact sheet
    ├── motion design
    ├── HyperFrames composition
-   ├── QA
+   ├── full draft review + fixes
    └── rendering
    │
    ▼
@@ -64,8 +67,8 @@ codex-video-maker/
 │   └── skills/                 # Installed Codex-compatible video skills
 │
 ├── assets/                     # Shared branding, music, SFX, etc.
-├── docs/                       # Shared production references
-├── templates/                  # Reusable supporting templates
+├── docs/                       # Visual production workflow
+├── templates/                  # Shot plan, design, and review templates
 │
 ├── jobs/
 │   ├── _template/              # Copy this for every new video
@@ -84,6 +87,11 @@ codex-video-maker/
 │       ├── source.json
 │       ├── transcript.json
 │       ├── vo.mp3
+│       ├── shot-plan.md         # Generated transcript-to-visual map
+│       ├── design.md            # Generated motion, type, color, layout system
+│       ├── storyboard/          # Shot stills + inspected contact-sheet.jpg
+│       ├── review.md            # Storyboard and draft findings / rechecks
+│       ├── draft.mp4
 │       └── final.mp4
 │
 ├── AGENTS.md                   # Permanent production rules for Codex
@@ -140,6 +148,8 @@ The most useful skills for this project are:
 - `explainer-video`
 
 Specialized skills such as diagram, isometric, or whiteboard animation should only be used when they clearly improve the explanation.
+
+Use the installed HyperFrames entry and CLI skills for implementation. Select kinetic typography or diagram skills when useful, and adapt their techniques to deterministic HTML/CSS/SVG/GSAP. The production stage uses the visual guidance from explainer skills while preserving the approved narration and timing; their script-writing, TTS, and alternate-renderer defaults do not apply.
 
 HyperFrames is the required renderer.
 
@@ -719,7 +729,7 @@ Codex should handle:
 ```text
 Read inputs
     ↓
-Create visual plan
+Create transcript-synchronized shot-plan.md and design.md
     ↓
 Determine the best visual for each narration beat
     ↓
@@ -727,7 +737,11 @@ Navigate the repo/site
     ↓
 Capture screenshots and short interactions
     ↓
-Build HyperFrames composition
+Build static HyperFrames layouts for the selected format
+    ↓
+Export and inspect storyboard/contact sheet and full-size stills
+    ↓
+Fix layouts, then complete purposeful animation
     ↓
 Lint
     ↓
@@ -735,11 +749,11 @@ Inspect
     ↓
 Draft render
     ↓
-Visual review
+Watch complete draft with narration; record findings in review.md
     ↓
-Fix weak scenes
+Fix weak scenes, rerun checks, render updated draft, re-review
     ↓
-Final render
+Final render and playback / dimensions / FPS / duration verification
 ```
 
 ---
@@ -780,6 +794,10 @@ What does the viewer need to see right now?
 
 Then choose the best visual source.
 
+Choose real UI, an interaction demo, animated technical diagram, code close-up, kinetic typography, or focused graphic according to that need. Use authentic product screens whenever practical; document source limitations and distinguish conceptual illustrations from product evidence. Show context → action → observed result in UI demos. Keep kinetic text to hooks, key statements, and transitions. Define reusable motion, typography, and palette tokens before animation, and recompose every shot for horizontal or vertical output.
+
+Use the [detailed procedure](docs/visual-production-workflow.md) and copy its [shot plan](templates/shot-plan.md), [design](templates/design.md), and [review](templates/review.md) templates into the job. These artifacts are generated during production and do not expand the input contract.
+
 ---
 
 # HyperFrames QA Workflow
@@ -787,13 +805,21 @@ Then choose the best visual source.
 Every video should follow:
 
 ```text
-lint
+static layouts
+→ storyboard/contact sheet + full-size still inspection
+→ layout fixes
+→ complete animation
+→ lint
 → inspect
+→ fix reported problems + rerun applicable checks
 → draft render
-→ visual review
-→ fix
+→ complete playback with narration + recorded review
+→ fix + checks + updated draft + re-review
 → final render
+→ final playback and metadata verification
 ```
+
+Inspect the storyboard before completing animation. Watch the entire draft for clarity, repetition, readability, pacing, and visual variety; inspect detailed frames for crops and safe areas. Record shot IDs, timecodes, fixes, and recheck results in the job's `review.md`. A generated contact sheet or successful lint run does not replace visual review. See the [production workflow](docs/visual-production-workflow.md) for the full review gates.
 
 From the composition directory:
 
