@@ -8,6 +8,8 @@ Copy this template to `jobs/<job-name>/shot-plan.md` and replace the placeholder
 - Output format, dimensions, FPS; effective configuration file:
 - Core visual intent (derived from the approved narration):
 
+If supplied, inspect `references/` and complete `reference-analysis.md` before generating/finalizing this plan. Carry the strongest relevant concepts into shot notes and motion intent, adapting to unchanged transcript times and the selected orientation. Exact panel timing, count, order, and composition are not required. Omit reference notes when no references exist.
+
 ## Transcript map
 
 Copy exact source text and timestamps. Include every segment; do not overwrite the transcript. Record visual subdivisions only in the shot list below.

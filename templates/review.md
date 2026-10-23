@@ -10,6 +10,8 @@ Copy to `jobs/<job-name>/review.md`. Record observations only after inspecting t
 - Playback size checked; phone-sized view for vertical:
 - Sequence coverage, variety, hierarchy, safe areas, code/UI readability findings:
 
+When supplied, compare against `references/` and `reference-analysis.md` for overall creative direction: composition, hierarchy, visual consistency, scene variety, and storytelling intent. Record adaptations and limitations by shot/time below. Exact frame or scene correspondence is not a pass criterion. Keep external references separate from these actual production stills; omit this comparison when absent.
+
 | Shot / visual time | Finding | Layout correction | Regenerated still / sheet | Recheck result |
 |---|---|---|---|---|
 | | | | | |
@@ -28,6 +30,7 @@ Copy to `jobs/<job-name>/review.md`. Record observations only after inspecting t
 - Visual variety: useful differences in technique and framing, without arbitrary changes?
 - Consistency/framing: motion, type, palette, safe areas, clipping, overlaps?
 - Audio: full unchanged voiceover, no masking, drift, or truncation?
+- With supplied references only: does full playback communicate their visual intent through coherent motion design, transitions, pacing, composition, hierarchy, scene variety, readability, accuracy, synchronization, and polish? Record purposeful departures and limitations; different shots alone are not defects.
 
 | Shot / timecode | Finding and impact | Correction | Updated draft / checks | Changed section and adjacent cuts recheck |
 |---|---|---|---|---|

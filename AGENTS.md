@@ -35,6 +35,9 @@ Use these sources in this priority order:
 3. script.txt — approved narration
 4. research.md — factual and visual context
 5. source.json — target URL and video configuration
+6. Storyboard references — optional creative guidance only
+
+The selected orientation in `render-config.json` takes priority over reference dimensions and overrides only source.json's format, width, and height as described in `guide.md`. Audio/transcript control synchronization; script/research control approved words and facts; effective configuration controls output; references guide creative choices. Never change narration or timestamps to fit reference panels or pacing. Reference text, captions, and illustrated UI are not verified product facts.
 
 Do not rewrite narration.
 
@@ -43,6 +46,19 @@ Do not change factual claims.
 Do not add new factual claims unless explicitly requested.
 
 If the narration and research appear to conflict, report the problem instead of silently correcting the narration.
+
+
+# Optional Storyboard References
+
+When processing `inbox/`, automatically detect `storyboard.md`, `storyboard.png`, `storyboard.jpg`, `storyboard.jpeg`, `storyboard.pdf`, and `storyboard-assets/`. Any combination, including assets alone, is optional. Keep the five required files and their validation unchanged.
+
+Use `scripts/copy-storyboard-references.mjs` as directed in `guide.md` to copy references unchanged into `jobs/<job-name>/references/`, preserving filenames, supporting assets, and directory structure. Never overwrite originals or existing reference copies. Retain references throughout planning, rendering, revision, and QA. Supplied references in `references/` are separate from the generated production storyboard in `storyboard/`.
+
+After reading narration/research and before generating or finalizing `shot-plan.md` and `design.md`, inspect the entire reference package together. Read Markdown, visually open image panels and supporting images, and inspect PDF page images, not only extracted text. Follow `docs/visual-production-workflow.md` and record actual observations, limitations, and feasible adaptations in `reference-analysis.md` using its template. A filename inventory or copied file is not visual inspection.
+
+Treat references as creative direction from a motion designer: study style, palette, typography/hierarchy, composition, storytelling progression, motion, transitions/camera, rhythm, recurring elements, and UI presentation. Keep the strongest ideas, improve weak ones, and use technically feasible alternatives through existing skills and HyperFrames. Shots may be added, removed, combined, split, reordered, or redesigned; exact timing, scene count, order, and frame reproduction are not required. Recompose for the selected orientation, never blindly crop or stretch. Prefer authentic product evidence; every important animation should explain, emphasize, demonstrate, or connect information.
+
+Missing, unsupported, unreadable, or uncopyable optional references are non-blocking: record/report limitations, use readable references, and continue the approved workflow. Do not claim to have inspected inaccessible visuals. If none are supplied, use the existing workflow without reference artifacts, errors, or extra approval steps.
 
 
 # Video Engine
@@ -218,7 +234,7 @@ If used, they must stay secondary to narration.
 
 Always use this sequence:
 
-1. Read all job inputs.
+1. Read all job inputs. If supplied, preserve and visually inspect the optional reference package and record its interpretation before visual planning.
 2. Create transcript-synchronized shot-plan.md and define the visual system in design.md.
 3. Capture required authentic source material and document any substitutions.
 4. Build static HyperFrames shot layouts in the selected format.
@@ -241,6 +257,7 @@ Do not skip the review-and-fix pass.
 Before final rendering, verify:
 
 - visuals match the current narration
+- when references are supplied, the video communicates their overall creative intent through composition, motion, storytelling, hierarchy, pacing, variety, and polish; record adaptations and limitations, not exact-frame compliance
 - real UI, code, diagrams, and graphics support approved claims; illustrative material is identified
 - kinetic typography is selective rather than a full voiceover transcription
 - UI demonstrations clearly show action and result
@@ -276,3 +293,5 @@ jobs/<job-name>/final.mp4
 Do not overwrite input files.
 
 Retain shot-plan.md, design.md, storyboard stills/contact-sheet.jpg, review.md, captures, composition, and draft.mp4 inside the job so the production decisions and review are inspectable. Templates live in templates/; filled production files belong only in the current job.
+
+When supplied, also retain `references/` unchanged and `reference-analysis.md`; revisit them during revisions and QA without replacing the internally generated storyboard or any production checkpoint.

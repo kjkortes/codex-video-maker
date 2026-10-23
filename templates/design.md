@@ -2,6 +2,8 @@
 
 Copy to `jobs/<job-name>/design.md`. Fill before animation; implement choices as reusable tokens in the HyperFrames composition.
 
+If supplied, inspect `references/` and complete `reference-analysis.md` before generating/finalizing this design. Record adopted creative ideas and deliberate improvements/departures here, translating palette, hierarchy, composition, motion, transitions, and rhythm into feasible reusable tokens. Preserve narration, accuracy, and selected orientation; omit reference notes when absent.
+
 ## Intent and frame
 
 - Audience and one visual message supported by the approved narration:

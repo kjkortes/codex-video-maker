@@ -13,6 +13,12 @@ The user's TTS application produces:
 
 The Codex Video Maker consumes all five files.
 
+## Optional downstream storyboard references
+
+The user may also place any combination of `storyboard.md`, `storyboard.png`, `storyboard.jpg`, `storyboard.jpeg`, `storyboard.pdf`, and `storyboard-assets/` in Codex Video Maker's `inbox/`. These are optional creative references, not a sixth required input or a change to any format below. ChatGPT does not need to generate them.
+
+Codex automatically detects and copies them unchanged to the job's `references/`, preserving filenames and supporting directories. After reading narration/research, Codex inspects them together visually (including PDF page images) before creating the shot plan and design. References guide style, composition, motion, transitions, flow, and rhythm; they do not verify product facts or override approved narration, audio/transcript timing, or selected output orientation. Exact scenes and timings are not required. Codex retains its separate generated `storyboard/` and QA gates, comparing overall creative intent rather than frame matches. No references means the existing five-file workflow; unreadable/unsupported optional files are non-blocking. See the [production workflow](../../docs/visual-production-workflow.md).
+
 ## research.md
 
 Required structure:

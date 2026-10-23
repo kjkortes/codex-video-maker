@@ -20,6 +20,8 @@ The selected orientation overrides the aspect ratio and dimensions in `source.js
 
 The [visual production workflow](docs/visual-production-workflow.md) adds transcript-synchronized shot planning, authentic product evidence, selective motion graphics, and a consistent typography, color, and motion system. Every shot is composed for the selected format. Codex inspects a storyboard/contact sheet before completing animation, then watches and fixes the draft before final rendering. Research, script approval, external TTS, transcript timestamps, the five-file input contract, and HyperFrames remain unchanged.
 
+You may also place an optional [storyboard reference package](#optional-storyboard-references) in `inbox/`. Codex preserves it in the job's `references/` and studies it before visual planning. It provides creative direction, not mandatory scenes or verified product facts. No reference is required.
+
 ---
 
 # End-to-End Workflow
@@ -69,6 +71,8 @@ codex-video-maker/
 ├── assets/                     # Shared branding, music, SFX, etc.
 ├── docs/                       # Visual production workflow
 ├── templates/                  # Shot plan, design, and review templates
+├── scripts/                    # Dependency-free optional reference intake
+├── tests/                      # Node intake and instruction-contract checks
 │
 ├── jobs/
 │   ├── _template/              # Copy this for every new video
@@ -87,6 +91,9 @@ codex-video-maker/
 │       ├── source.json
 │       ├── transcript.json
 │       ├── vo.mp3
+│       ├── references/          # Optional supplied originals, unchanged
+│       ├── reference-analysis.md # Generated interpretation, only with references/warnings
+│       ├── reference-inspection/ # Optional derived PDF pages / visual previews
 │       ├── shot-plan.md         # Generated transcript-to-visual map
 │       ├── design.md            # Generated motion, type, color, layout system
 │       ├── storyboard/          # Shot stills + inspected contact-sheet.jpg
@@ -594,6 +601,7 @@ If files disagree, use this order:
 3. script.txt
 4. research.md
 5. source.json
+6. Optional storyboard references
 ```
 
 Meaning:
@@ -603,8 +611,63 @@ Meaning:
 - `script.txt` controls approved wording
 - `research.md` provides factual and visual context
 - `source.json` provides source and output configuration
+- The selected orientation/effective `render-config.json` overrides only source format, width, and height; it takes priority over reference dimensions.
+- Storyboard references guide creative direction after timing, approved narration/facts, and output configuration. Their captions, text, or illustrated UI are not verified product evidence.
 
 If a meaningful conflict exists, Codex should report it instead of silently changing the narration or facts.
+
+---
+
+# Optional Storyboard References
+
+Put any combination of the following alongside the five required files in `inbox/`:
+
+```text
+inbox/
+├── research.md
+├── script.txt
+├── source.json
+├── vo.mp3
+├── transcript.json
+├── storyboard.md           # Optional
+├── storyboard.png          # Optional
+├── storyboard.jpg          # Optional
+├── storyboard.jpeg         # Optional
+├── storyboard.pdf          # Optional; visually inspected by page
+└── storyboard-assets/      # Optional; supporting files and nested directories
+    └── panels/
+        └── reference.png
+```
+
+Use these exact lowercase names. One file, several formats, or assets alone are supported. The five required inputs and their formats/validation stay unchanged. Start production using either orientation prompt in [guide.md](guide.md#3-choose-the-video-orientation-and-paste-one-prompt); no new prompt or approval is required.
+
+During normal job creation, Codex runs `scripts/copy-storyboard-references.mjs` with `inbox` and the newly created job path. This Node standard-library helper automatically detects the supported root names, recursively copies all regular supporting files (including nested paths and empty directories), verifies destination bytes, and returns a JSON inventory with paths, byte counts, SHA-256 values, and warnings. The copies retain original filenames/contents under `jobs/<job-name>/references/`. Existing differing copies are never overwritten; symbolic links are skipped. The helper does not analyze visuals or change the five required inputs, orientation, composition, or rendering pipeline.
+
+After reading approved narration/research, Codex opens the preserved images, studies panel relationships, reads Markdown, and visually inspects PDF page images before generating/finalizing `shot-plan.md` and `design.md`. It records observations and limitations in generated `reference-analysis.md`, using the [template](templates/reference-analysis.md). Any derived pages/previews go in `reference-inspection/`; originals stay untouched in `references/`. All references are studied together as one creative package, covering style, palette, typography/hierarchy, composition, flow, motion, transitions/camera, rhythm, recurring elements, and product UI presentation.
+
+The storyboard is inspiration from a motion designer or creative director. Codex adopts its strongest ideas, improves weak ones, and chooses feasible alternatives through existing motion skills and HyperFrames. It may add, remove, combine, split, reorder, or redesign shots. Exact timing, scene count, order, and frame matching are not required. Audio/transcript control synchronization, script/research control narration/facts, and selected orientation controls composition. Codex never rewrites narration or invents product UI/functionality to match a reference. Horizontal/vertical concepts are recomposed for readable hierarchy instead of blindly cropped or stretched.
+
+References should raise motion-design quality as well as layout quality: meaningful movement, state changes, dynamic explanations, related transitions, typography emphasis, readable authentic UI, comparisons, and depth where useful. Every important animation must explain, emphasize, demonstrate, or connect information. Avoid repetitive static cards, bullets, fades, unreadable screenshots, and decoration. No new renderer or unnecessary dependencies are introduced.
+
+During storyboard inspection and complete draft playback, Codex compares the result with the package's overall creative direction: consistency, composition, motion design, storytelling, variety, hierarchy, pacing, readability, narration sync, accuracy, and polish. It records adaptations/limitations in `review.md`; differing final shots alone do not fail QA. The internal production storyboard remains `storyboard/contact-sheet.jpg` from actual layouts, with all existing visual inspection, lint, inspect, draft review/fix, and final verification checkpoints retained. Reference copies remain available during revisions and resumed jobs.
+
+With no references, the existing workflow runs unchanged and creates no reference artifacts or extra approval gates. Unsupported, missing, unreadable, or uncopyable optional files are reported and skipped while usable material and the normal five-file workflow continue. Copying preserves bytes; it does not prove a PDF/image can be visually decoded. Original references remain in `inbox/` unchanged; move them out before the next video's package. Only the five required inputs are cleared by the normal validated-copy procedure.
+
+For manually created jobs, run this **after** copying/validating the five inputs and **before** asking Codex to plan the video:
+
+```bash
+node scripts/copy-storyboard-references.mjs inbox jobs/photocraft
+```
+
+Codex normally supplies the actual job path automatically through the guide. On resume it uses preserved job references rather than importing the next inbox package. See the [production workflow](docs/visual-production-workflow.md#0-inspect-optional-storyboard-references) for inspection and interpretation details.
+
+Validate this repository feature without generating a video:
+
+```bash
+node --test tests/*.test.mjs
+```
+
+Tests exercise detection/copy behavior and instruction contracts, including ordering and existing checkpoints. Actual visual interpretation remains the production agent's responsibility, not a claim made by these automated checks.
 
 ---
 
@@ -728,6 +791,8 @@ Codex should handle:
 
 ```text
 Read inputs
+    ↓
+If supplied: preserve and visually inspect reference package; record interpretation
     ↓
 Create transcript-synchronized shot-plan.md and design.md
     ↓
@@ -899,7 +964,7 @@ For each new video:
 cp -r jobs/_template jobs/<video-name>
 ```
 
-9. Copy all five inputs into the job.
+9. Copy all five inputs into the job. If supplying references, preserve them with the [reference intake helper](#optional-storyboard-references) before visual planning. For automatic inbox intake and orientation selection, use [guide.md](guide.md).
 10. Initialize HyperFrames:
 
 ```bash
