@@ -13,11 +13,20 @@ The user's TTS application produces:
 
 The Codex Video Maker consumes all five files.
 
-## Optional downstream storyboard references
+## Optional ChatGPT-created storyboard references
 
-The user may also place any combination of `storyboard.md`, `storyboard.png`, `storyboard.jpg`, `storyboard.jpeg`, `storyboard.pdf`, and `storyboard-assets/` in Codex Video Maker's `inbox/`. These are optional creative references, not a sixth required input or a change to any format below. ChatGPT does not need to generate them.
+After delivering the approved `research.md`, `script.txt`, and `source.json`, ChatGPT offers a separate optional checkpoint: **Create a storyboard? Portrait (9:16) or landscape (16:9)?**
 
-Codex automatically detects and copies them unchanged to the job's `references/`, preserving filenames and supporting directories. After reading narration/research, Codex inspects them together visually (including PDF page images) before creating the shot plan and design. References guide style, composition, motion, transitions, flow, and rhythm; they do not verify product facts or override approved narration, audio/transcript timing, or selected output orientation. Exact scenes and timings are not required. Codex retains its separate generated `storyboard/` and QA gates, comparing overall creative intent rather than frame matches. No references means the existing five-file workflow; unreadable/unsupported optional files are non-blocking. See the [production workflow](../../docs/visual-production-workflow.md).
+Only when the user opts in, ChatGPT prepares:
+- `storyboard.md`: creative notes tied to approved narration phrases, with no invented precise timestamps.
+- `storyboard.png`: visual storyboard contact sheet; each scene panel follows the selected video aspect ratio.
+- `storyboard-assets/`: optional individual panels or supporting images when useful.
+
+The storyboard is created from approved narration and verified research, without waiting for TTS. It is a creative reference for Codex, **not** a frame-accurate production storyboard, a timed shot plan, or a sixth required input. If the user changes the intended format at the storyboard checkpoint, ChatGPT supplies an updated `source.json` with the selected video dimensions and leaves the approved narration/research unchanged. Codex's chosen render orientation still controls final output.
+
+Codex Video Maker accepts any combination of `storyboard.md`, `storyboard.png`, `storyboard.jpg`, `storyboard.jpeg`, `storyboard.pdf`, and `storyboard-assets/` in `inbox/`. Codex copies originals to its job's `references/`, inspects them visually before shot planning/design, and treats them as creative guidance. It can redesign, reorder, combine, or remove shots. Its own generated `storyboard/` remains separate.
+
+If the user declines a storyboard, the workflow remains the existing three ChatGPT files plus two TTS files. Exact synchronization belongs to `vo.mp3` and `transcript.json`, not the creative storyboard. See `STORYBOARD_STANDARD.md` for reference creation rules.
 
 ## research.md
 
