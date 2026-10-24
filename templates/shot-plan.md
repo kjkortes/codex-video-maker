@@ -7,6 +7,8 @@ Copy this template to `jobs/<job-name>/shot-plan.md` and replace the placeholder
 - Transcript segment reference convention (existing IDs or array indices):
 - Output format, dimensions, FPS; effective configuration file:
 - Core visual intent (derived from the approved narration):
+- VO captions: [locked standard](../docs/vo-caption-standard.md), enabled by default; selected fixed LOWER-THIRD rectangle and clearance reserved in EVERY shot:
+- Original word timing/alignment source and derived `captions.json`; explicit user exception if any:
 
 If supplied, inspect `references/` and complete `reference-analysis.md` before generating/finalizing this plan. Carry the strongest relevant concepts into shot notes and motion intent, adapting to unchanged transcript times and the selected orientation. Exact panel timing, count, order, and composition are not required. Omit reference notes when no references exist.
 
@@ -38,4 +40,6 @@ Record unavailable UI, substitute official material, and clearly identified illu
 - Visual intervals cover the measured audio, including pauses and ending; any transition overlap is intentional.
 - Source timestamps and narration are unchanged; any discrepancy is reported.
 - Every shot has a selected-format framing plan and one focal point.
+- Every shot leaves the same lower VO caption band clear of UI, diagrams, callouts, and lockups; reposition/reflow visuals instead of moving captions.
+- Caption groups cover all spoken words once in order using unchanged source timing; max 2 lines and the locked style. Plan pause/cut/ending cleanup separately from main-visual typography.
 - Adjacent shots add information; typography is selective and holds are readable.

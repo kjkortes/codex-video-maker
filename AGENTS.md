@@ -121,7 +121,7 @@ Choose the technique that best explains each beat:
 
 Use variety when the explanation benefits; do not force every technique into every video. Avoid consecutive shots that repeat the same framing or information without a reason.
 
-Use kinetic typography selectively: a short phrase or key words, timed to the relevant spoken beat, followed by a readable hold. Do not turn the entire voiceover into animated text slides. Captions, if requested, are a separate layer and must not compete with the main visual.
+Use kinetic typography selectively: a short phrase or key words, timed to the relevant spoken beat, followed by a readable hold. Do not turn the entire voiceover into animated text slides. Default VO captions are a separate layer and must not compete with the main visual.
 
 Prefer:
 
@@ -147,6 +147,15 @@ Avoid:
 - decorative motion without purpose
 - large blocks of text
 - repeating the narration as on-screen text
+
+
+# VO Captions — Locked Project Default
+
+Include burned-in VO captions in every new video unless the user explicitly requests otherwise. Read and follow [docs/vo-caption-standard.md](docs/vo-caption-standard.md) before shot planning and layout. This user-approved project standard overrides generic skill defaults and optional reference caption styles; do not ask the user to choose a caption style again.
+
+Use bold uppercase Inter Black 900 at 70px, white text with a 10px dark outline and yellow `#FFE34D` current-word highlights, short 2–4-word groups, max 2 lines, and no subtitle box. Keep every cue in ONE FIXED LOWER-THIRD position. For 1080×1920 portrait, the approved rectangle is x108,y1420,w768,h144. Never return VO captions to the upper/middle frame or move them between shots. Use the standard's landscape adaptation for horizontal output.
+
+Reserve that lower band in every shot from the start; reposition/reflow visuals above it instead of covering UI or shrinking essential text. Preserve the approved VO and all source transcript words/timestamps. Derive each video's caption groups from its own transcript and use reliable word alignment; do not fabricate word timing. Use deterministic HyperFrames clips/GSAP, retain generated `captions.json`, and verify caption placement and synchronization during storyboard, complete draft, and final QA. Record any explicit user exception in the job's design and review.
 
 
 # Browser Capture
@@ -235,7 +244,7 @@ If used, they must stay secondary to narration.
 Always use this sequence:
 
 1. Read all job inputs. If supplied, preserve and visually inspect the optional reference package and record its interpretation before visual planning.
-2. Create transcript-synchronized shot-plan.md and define the visual system in design.md.
+2. Create transcript-synchronized shot-plan.md and define the visual system in design.md, reserving the locked lower VO caption band from docs/vo-caption-standard.md.
 3. Capture required authentic source material and document any substitutions.
 4. Build static HyperFrames shot layouts in the selected format.
 5. Produce and visually inspect the storyboard/contact sheet and full-size stills; record findings, fix layouts, and refresh the sheet before completing animation.
@@ -260,6 +269,7 @@ Before final rendering, verify:
 - when references are supplied, the video communicates their overall creative intent through composition, motion, storytelling, hierarchy, pacing, variety, and polish; record adaptations and limitations, not exact-frame compliance
 - real UI, code, diagrams, and graphics support approved claims; illustrative material is identified
 - kinetic typography is selective rather than a full voiceover transcription
+- default burned-in VO captions follow docs/vo-caption-standard.md: one fixed LOWER-THIRD rectangle, approved type/outline/colors, original-word highlights, all words once in order, no overlap or position jumps; any explicit user exception is recorded
 - UI demonstrations clearly show action and result
 - motion, typography, and color roles are consistent
 - each shot is composed for the selected aspect ratio
@@ -292,6 +302,6 @@ jobs/<job-name>/final.mp4
 
 Do not overwrite input files.
 
-Retain shot-plan.md, design.md, storyboard stills/contact-sheet.jpg, review.md, captures, composition, and draft.mp4 inside the job so the production decisions and review are inspectable. Templates live in templates/; filled production files belong only in the current job.
+Retain shot-plan.md, design.md, storyboard stills/contact-sheet.jpg, review.md, captures, composition, generated captions.json, and draft.mp4 inside the job so the production decisions and review are inspectable. Templates live in templates/; filled production files belong only in the current job.
 
 When supplied, also retain `references/` unchanged and `reference-analysis.md`; revisit them during revisions and QA without replacing the internally generated storyboard or any production checkpoint.

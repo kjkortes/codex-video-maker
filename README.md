@@ -22,6 +22,8 @@ The [visual production workflow](docs/visual-production-workflow.md) adds transc
 
 You may also place an optional [storyboard reference package](#optional-storyboard-references) in `inbox/`. Codex preserves it in the job's `references/` and studies it before visual planning. It provides creative direction, not mandatory scenes or verified product facts. No reference is required.
 
+**VO captions are a locked project default.** Every generated video includes short, bold outlined white captions with yellow spoken-word highlights in **one fixed lower-third position**, unless you explicitly change or disable them. The [VO caption standard](docs/vo-caption-standard.md) records the approved portrait placement (x108,y1420,w768,h144 at 1080×1920), type, colors, timing, landscape adaptation, and review checks. Main visuals are composed above that band from the start; captions do not move between shots. You do not need to request this style again.
+
 ---
 
 # End-to-End Workflow
@@ -586,7 +588,7 @@ Rules:
 - chronological order
 - no overlapping segments
 - timestamps match the actual audio
-- phrase or sentence-level segments are preferred
+- word-level timing is recommended for the default spoken-word caption highlights; phrase/sentence-level segments remain supported, with reliable word alignment generated from the unchanged audio during production as described in the [VO caption standard](docs/vo-caption-standard.md)
 - final `end` should approximately match the audio duration
 
 ---

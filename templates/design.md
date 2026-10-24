@@ -24,7 +24,19 @@ If supplied, inspect `references/` and complete `reference-analysis.md` before g
 | Code | | | | |
 
 - Minimum readable size at realistic playback scale:
-- Caption placement and hierarchy, only if requested:
+
+## VO captions — locked default
+
+Apply [the project standard](../docs/vo-caption-standard.md) unless the user explicitly changes/disables captions. Reserve the LOWER-THIRD band in every shot before composing visuals; never place VO captions in the upper/middle frame or move them between shots.
+
+- Enabled by default; explicit user exception and its source, if any:
+- Fixed rectangle: portrait 1080×1920 = x108,y1420,w768,h144; landscape 1920×1080 = x192,y820,w1536,h144; selected row/scaling:
+- Local Inter Black 900, 70px/1.02, tracking -1.5px; uppercase CSS, explicit 20px word gaps; max 2 lines, usually 2–4 words:
+- White #FFFFFF, active word yellow #FFE34D, 10px outline #101827, shadow 0 5px 0 #101827; transparent background, no panel:
+- Inner-text entrance scale 0.97→1, 0.10s, power2.out; fixed container position:
+- Original transcript indices/word timings or reliable derived alignment; generated `captions.json` path:
+- Yellow from original word onset until next word onset in group or cue close; no white flashes/stale groups:
+- Per-shot visual clearance above caption band; authentic UI and essential labels remain readable:
 
 ## Palette
 

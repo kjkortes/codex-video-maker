@@ -9,6 +9,8 @@ Copy to `jobs/<job-name>/review.md`. Record observations only after inspecting t
 - Review date and composition revision:
 - Playback size checked; phone-sized view for vertical:
 - Sequence coverage, variety, hierarchy, safe areas, code/UI readability findings:
+- VO captions match [the locked standard](../docs/vo-caption-standard.md): bold outlined white type, yellow active word, short groups, max 2 lines, no panel; exact fixed LOWER-THIRD rectangle in every shot (or recorded explicit user exception):
+- Long/two-line caption states on light/dark scenes inspected; phone readability, word spacing, visual/player-UI clearance, no upper/middle placement:
 
 When supplied, compare against `references/` and `reference-analysis.md` for overall creative direction: composition, hierarchy, visual consistency, scene variety, and storytelling intent. Record adaptations and limitations by shot/time below. Exact frame or scene correspondence is not a pass criterion. Keep external references separate from these actual production stills; omit this comparison when absent.
 
@@ -30,6 +32,7 @@ When supplied, compare against `references/` and `reference-analysis.md` for ove
 - Visual variety: useful differences in technique and framing, without arbitrary changes?
 - Consistency/framing: motion, type, palette, safe areas, clipping, overlaps?
 - Audio: full unchanged voiceover, no masking, drift, or truncation?
+- VO captions: all words once in order, original-onset word highlights and smooth handoffs, no stale/overlapping groups at pauses/cuts, same lower position throughout, no UI/diagram/lockup collisions?
 - With supplied references only: does full playback communicate their visual intent through coherent motion design, transitions, pacing, composition, hierarchy, scene variety, readability, accuracy, synchronization, and polish? Record purposeful departures and limitations; different shots alone are not defects.
 
 | Shot / timecode | Finding and impact | Correction | Updated draft / checks | Changed section and adjacent cuts recheck |
@@ -48,4 +51,5 @@ If no defects are found, record that explicitly with the reviewed draft revision
 - Expected versus actual dimensions and FPS:
 - Expected voiceover duration versus final duration (frame/codec rounding only):
 - Final playback with full narration verified:
+- Burned-in VO captions in final export: locked appearance and lower position, word sync and first/last word coverage verified; generated `captions.json` retained (or explicit user exception recorded):
 - Deliverable path and limitations reported:

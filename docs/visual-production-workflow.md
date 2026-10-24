@@ -4,6 +4,8 @@ Use this procedure for every new video and when resuming unfinished production. 
 
 The five input files, their priority, and the research → approved script → external TTS/transcript handoff stay unchanged. Production artifacts are generated inside `jobs/<job-name>/`; supplied creative references are preserved unchanged in that job's `references/`. Do not edit the approved voiceover, transcript timestamps, script, research, or source configuration. Keep HyperFrames as the composition and rendering engine.
 
+Read the [locked VO caption standard](vo-caption-standard.md) for every production. Burned-in short-form VO captions are enabled by default, unless the user explicitly changes or disables them. Keep the approved bold outlined white/yellow style in one fixed **lower-third** band throughout the video. Generic skill/reference caption defaults do not override this project choice.
+
 ## 0. Inspect optional storyboard references
 
 During inbox intake, use the single detection/copy helper in [guide.md](../guide.md#validate-and-create-the-job). It detects `storyboard.md`, `storyboard.png`, `storyboard.jpg`, `storyboard.jpeg`, `storyboard.pdf`, and `storyboard-assets/`, preserves original names/bytes and supporting directory structure in `references/`, and reports copy limitations. Review all supplied references together as one creative package, including assets supplied without a root storyboard file.
@@ -40,7 +42,7 @@ For every shot, decide what the viewer must understand, what evidence supports i
 | Emphasize a hook or key statement | Kinetic typography | Use brief words or a phrase, one restrained reveal, then a readable hold. |
 | Simplify an approved concept or comparison | Focused graphic | Use minimal labels and supported relationships; identify illustrative material. |
 
-Typography is emphasis, not a substitute for product evidence. Never reproduce the full narration as successive text cards. Do not add unsupported metrics, benefits, architecture, calls to action, or factual claims to graphics.
+Main-visual typography is emphasis, not a substitute for product evidence. Never reproduce the full narration as successive text cards. The separate default VO caption layer transcribes the narration using the locked standard. Do not add unsupported metrics, benefits, architecture, calls to action, or factual claims to graphics.
 
 ## 2. Define the visual system
 
@@ -55,6 +57,7 @@ Record a small reusable system before animation:
 - Typography: actual font assets/families, weights, sizes, line lengths, and headline/label/code roles.
 - Palette: exact colors for background, surface, text, muted text, emphasis, and any semantic states. Keep color meaning consistent.
 - Layout: grid, spacing, safe areas, output-size readability, and format-specific framing for every shot.
+- VO captions: copy the locked style and fixed lower rectangle from [vo-caption-standard.md](vo-caption-standard.md); reserve it in every shot before capture/layout. At1080×1920 use x108,y1420,w768,h144. Keep source words/timestamps intact, derive groups for this job, and record reliable word timing/alignment and any explicit user exception.
 
 Use the installed HyperFrames entry, composition, animation, and CLI skills. Apply motion-art-direction, shot-composition, animation-principles, color-motion, and explainer-video where useful. Add diagram-animation or kinetic-typography/animate-text only for shots that need them. Adapt renderer-independent advice to seekable HyperFrames HTML/CSS/SVG/GSAP; skip any skill defaults for writing narration, generating TTS, or switching renderers. Music-grid timing must never move supplied narration or timestamps. Music and effects remain optional and secondary.
 
@@ -68,11 +71,15 @@ If a live product is unavailable, use an official screenshot or demo where possi
 
 Build each shot's static, final visible layout in the job's HyperFrames composition. Use one focal point, purposeful crops, readable code, and minimal callouts. Keep source context where needed to understand the feature. Package required assets and fonts inside the composition according to HyperFrames conventions.
 
+Lay out the actual VO caption layer in its fixed lower band now. Reflow or reposition important content above it; do not move captions upward, obscure UI, or shrink essential labels to make room. Keep all cue rectangles identical, with centered one-line/two-line groups. Retain generated `captions.json` with source indices, original text/timing references, cue windows, and grouping; no new input file is required.
+
 ## 4. Inspect the storyboard before completing animation
 
 Export at least one representative still of every shot from the actual HyperFrames layouts. Include additional before/after or mechanism states when a single still cannot show the intended explanation. Use the installed CLI's still/snapshot workflow; consult its help for supported options rather than guessing flags. Store stills in `storyboard/` and combine them into `storyboard/contact-sheet.jpg` in narration order, labeled with shot ID and visual time range. Paginate large sheets if necessary while retaining that entry file.
 
 Open the contact sheet to assess sequence, visual variety, repeated framing, and narrative coverage. Open the full-size stills to assess text, code, UI crops, hierarchy, safe areas, and overlaps at realistic playback size. For vertical output, also inspect a phone-sized view. A contact sheet alone cannot prove small text is readable.
+
+Include visible VO captions in every shot's review, plus representative long/two-line groups. Verify the approved type, outline, word spacing, white/yellow colors, identical lower placement, and clearance from visuals and platform UI. An upper/middle VO caption band fails this review unless the user explicitly requested it.
 
 Copy [review.md](../templates/review.md) into the job. Record concrete findings and corrections in its storyboard section. Fix the layouts and regenerate affected stills and the contact sheet. This is a producer review gate; do not require an extra user approval unless requested. Finish the animation only after the storyboard inspection and layout fixes.
 
@@ -84,6 +91,8 @@ Animate only what explains a change, guides attention, or emphasizes a key beat.
 
 Build deterministic paused timelines using HyperFrames conventions. Apply the job's typography, color, and motion tokens consistently. Leave enough stillness to read and understand each result; shorten visual complexity when the narration affords less time. Keep the supplied voiceover at its original speed and position.
 
+Implement captions on one HyperFrames captions track with static timed groups and seekable word highlights. Follow the standard's original-onset highlight handoffs, pause/end cleanup, and restrained inner-text entrance. Do not infer word timing by dividing sentence durations or modify the supplied transcript to obtain it.
+
 Run HyperFrames `lint`, then `inspect`, from the composition directory. Fix reported layout problems and run applicable checks again after changes. Follow any additional checks required by the installed HyperFrames skills. Render `../draft.mp4` with draft quality and `--workers 1`, as documented in the [README QA commands](../README.md#hyperframes-qa-workflow).
 
 ## 6. Review, fix, and deliver
@@ -91,6 +100,8 @@ Run HyperFrames `lint`, then `inspect`, from the composition directory. Fix repo
 Watch the entire draft with narration. Check whether every visual supports the words currently spoken, actions and results are understandable, type can be read in its hold, pacing leaves room to understand technical detail, and visual variety avoids repeated information. Inspect transitions and detailed frames; lint and a sheet of stills cannot establish pacing or audio sync.
 
 Record findings by shot ID and timecode in `review.md`: clarity, repetition, readability, pacing, visual variety, framing, and audio. For each issue, record the correction and recheck result. Fix weak sections, rerun applicable checks, render an updated draft, and review changed sections with their neighboring cuts. Repeat as needed. If the first draft has no defects, explicitly record that review result rather than making arbitrary changes. Report unavoidable source limitations.
+
+Check VO captions through full playback: every word once in order, highlights synchronized to original onsets, smooth handoffs, no overlapping/stale groups at pauses/cuts, unchanged first/last words, fixed lower placement, and no collisions. Record caption fixes/rechecks and verify the same style/placement in the final export. Preserve any explicit user exception in the design and review.
 
 With references, revisit `references/` and `reference-analysis.md` during full playback. Evaluate visual consistency, composition, motion-design quality, storytelling clarity, scene variety, hierarchy, pacing, readability, narration synchronization, factual accuracy, and polish. Record whether the reference's visual intent is communicated, which deliberate changes improved it, and any remaining limitations. This extends the existing QA record, not the number of approval gates. Static storyboard inspection cannot establish motion quality.
 
