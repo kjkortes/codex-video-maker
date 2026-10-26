@@ -16,6 +16,7 @@ Codex is responsible for:
 - visual callouts
 - motion design
 - HyperFrames composition
+- default burned-in VO captions using the project's locked lower-third style
 - editing
 - QA
 - final rendering
@@ -51,6 +52,12 @@ Not needed:
 - At 07.2 seconds, zoom 130% into the Layers panel using ease-out.
 
 The Codex video-production agent makes that decision based on the actual voiceover timestamps.
+
+## Locked VO caption presentation
+
+Codex adds VO captions by default unless the user explicitly changes/disables them: short 2–4-word groups, max 2 lines, uppercase Inter Black 900 at 70px, white text, 10px dark #101827 outline, yellow #FFE34D current-word highlight, transparent background, and restrained 100ms 97→100% inner-text entrance. All groups share one fixed LOWER-THIRD rectangle: portrait 1080×1920 x108,y1420,w768,h144; landscape 1920×1080 x192,y820,w1536,h144. Reserve that band in creative layouts; never suggest upper/middle VO captions or per-shot position changes. Main headlines/diagram labels remain separate.
+
+Codex follows [the full caption standard](../../docs/vo-caption-standard.md), using actual VO/transcript timings and retaining generated caption data. ChatGPT must not invent word timing, add caption directions to `script.txt`, or create a sixth required input. Optional storyboard references do not override this locked presentation.
 
 ## Optional storyboard handoff
 

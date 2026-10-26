@@ -115,4 +115,6 @@ transcript.json
 
 The transcript timestamps must correspond to the final generated audio.
 
+Word-level timings are recommended for Codex's default spoken-word caption highlights. Phrase/sentence-level transcripts remain valid; Codex can obtain reliable word alignment against the unchanged VO as derived job data, without replacing the supplied transcript or inventing evenly spaced word times. The five required inputs remain unchanged. Codex adds captions using [the locked lower-third VO caption standard](../../docs/vo-caption-standard.md); ChatGPT does not generate caption timings or add production directions to the approved script.
+
 ChatGPT does not estimate final timestamps.
